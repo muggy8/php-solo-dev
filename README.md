@@ -1,2 +1,16 @@
-# php-solo-dev
-This is a small wrapper for web devs using PHP who are more or less solo deving their website. This is a bare bones wrapper that lets you easily divide up your CSS and JS to make websites that will load extremely fast (assuming you have divided your CSS appropriately)
+<h1>PHP Solo Dev</h1>
+<p>PHP Solo Dev is a small group of PHP includes aimed at beginner/intermediat web devs and handels a few of the silly things like optimizing for load speed and compressing the initial HTML responce for an effective and fast first view. This is especially important if page speed is of a concern to whatever site you're buiding (like you're expecting predomently mobile users)</p>
+
+<h2>Goal</h2>
+<p>The goal is of this project is to provide clients with a fully displayable page that requires no additional assets to display when they recieve the core HTML responce from the server. This is especially important for mobile devices. You must however be careful that you do not inline too much CSS since the initial responce is only 16kb and any more will defeat the goal of near instantanious loading.</p>
+
+<h2>How does this work</h2>
+<p>The core concept of how this works is fairly simple, inline all important CSS rules and lazy load the rest. This is essencially what Google AMP does except with a number of other optimizations such as using CDNs to cache your HTML responce and so on.</p>
+
+<h2>How do I use this</h2>
+<p>You would use this almost the exact same way that you would set up a normal HTML/PHP project except a bunch of prep work has been done already. We'll assume that you are using an apache serveer that is capable of running PHP. in the project, you'll find index.template.php which is the template for the index file and contains the wrappers. You can immediately start adding content to the body of the main tag.</p>
+<p>Inside the inc folder, you'll find where the CSS, JS and other included assets are located. If you declare any CSS files in the critical CSS array (such as bootstrap-grids.css) they must be located in ./inc/css/ folder and similarly if you have some JS files that you are hosting off your server (such as obscure libraries), they must go in the ./inc/js/ folder if you want to just reffer to them by name. Of course there's nothing stopping you from making sub folders in the js and css folder. If you do you'll have to reference the folders in your includes (instead of calling asset.css you'll need to say path/from/css/folder/asset.css)</p>
+<p>Of course, the real magic is by is to starting with this wrapper in place so when deving, you are forced to make the decision of "is this CSS rule important enough to be inlined in the the initial responce?" instead of having to make those decisions after. This way the task of optimization for speed is much easier later.</p>
+
+<h2>Cool! what else does it do?</h2>
+<p>This wrapper is pretty much exactly that, a wrapper. I would not even call this a framework. As such there's really no additional fancy tools for you to use. The only "tool" that is there is a PHP function that automatically minifies your HTML responce and add another one that lets you inline SVG assets. Since SVGs are the only "imgage" type asset that can be inlined in an HTML responce body, if it's important enough to your site, you might want to include SVG images in your initial responce (like a logo?) when it loads (see settings.php). Otherwise, there's really nothing else in here.</p>
