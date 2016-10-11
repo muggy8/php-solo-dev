@@ -12,7 +12,7 @@
 	<body>
 		<?php include_once("$phpRoot/inc/header.php");?>
 		<main>
-		
+			<!-- Your web content here -->
 		</main>
 		<?php include_once("$phpRoot/inc/footer.php");?>
 		<?php include_once("$phpRoot/inc/floor.php");?>
