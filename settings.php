@@ -52,7 +52,7 @@
 	// You might not need the following but if you have SVGs, you can use this function to inline the SVG into the HTML responce and eliminating the need for additional requests
 	
 	// usage: <img src="{htRoot}/img/my-asset.svg" class="my-class"> becomes <?php echo_svg($phpRoot."/img/my-asset.svg", "my-class"); other code maybe...
-	function echo_svg($path, $classAdd = ""){
+	function echo_svg($path, $classAdd = "", $htFallback = ""){
 		if (!file_exists($path)){
 			echo "$path was not found";
 		}
@@ -60,6 +60,11 @@
 			$svgStr = preg_replace('/\<\?xml(.|\n)*\<svg/iU', '<svg', file_get_contents($path));
 			if ($classAdd !== ""){
 				$svgStr = preg_replace('/\<svg/iU', '<svg class="'.$classAdd.'"', $svgStr);
+			}
+			if ($htFallback !== ""){
+				$svgFallbackLink = '<image src="'.$htFallback.'" xlink:href="">';
+				
+				$svgStr = preg_replace('/\<\/svg\>/iU', $svgFallbackLink."</svg>", $svgStr);
 			}
 			
 			echo $svgStr;
