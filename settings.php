@@ -58,14 +58,33 @@
 		}
 		else{
 			$svgStr = preg_replace('/\<\?xml(.|\n)*\<svg/iU', '<svg', file_get_contents($path));
-			if ($classAdd !== ""){
-				$svgStr = preg_replace('/\<svg/iU', '<svg class="'.$classAdd.'"', $svgStr);
-			}
+			
 			if ($htFallback !== ""){
 				$svgFallbackLink = '<image src="'.$htFallback.'" xlink:href="">';
 				
 				$svgStr = preg_replace('/\<\/svg\>/iU', $svgFallbackLink."</svg>", $svgStr);
 			}
+			
+			$fileName = preg_replace("/\s/" , "-" , basename($path, ".svg"));
+			
+			// add file name to classes
+			$classAdd = $fileName . " " . $classAdd;
+			$svgStr = preg_replace('/\<svg/iU', '<svg class="'.$classAdd.'"', $svgStr);
+			
+			// localize the colors to the current file
+			$svgStr = preg_replace_callback(
+				"/\<style(.|\n)+\<\/style\>/imU",
+				function($styleEle) use ($fileName){
+					return ( preg_replace_callback(
+						"/\..+{/imU",
+						function($rule) use ($fileName){
+							return ("." . $fileName . " " . $rule[0]);
+						},
+						$styleEle[0]
+					));
+				},
+				$svgStr
+			);
 			
 			echo $svgStr;
 		}
