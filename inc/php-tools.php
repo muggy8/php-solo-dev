@@ -3,6 +3,8 @@
 	
 	// usage: if your root is "http://example.com/test" and you have something like src="{htRoot}/img/asset.jpg" somewhere, the HTML responce will have http://example.com/test/img/asset.jpg in the src attribute.
 	function sanitize_output($buffer) {
+		global $localAssetVersion;
+		global $imageVersioning;
 		global $htRoot;
 		$search = array(
 			'!/\*[^*]*\*+([^/][^*]*\*+)*/!', // strip CSS comments if there's any in line
@@ -28,6 +30,18 @@
 
 		$buffer = preg_replace($search, $replace, $buffer);
 		$buffer = str_replace('> <', '><', $buffer);
+		
+		// add version to image assets
+		if ($imageVersioning){
+			$buffer = preg_replace_callback('/(?<=(src=\"|src=\')).+(?=(\'|\"))/U', function($assetLink)use ($localAssetVersion, $imageVersioning){
+				if (preg_match('/\?/i', $assetLink[0])){ // has "?"
+					return $assetLink[0]."&v=$localAssetVersion";
+				}
+				else{
+					return $assetLink[0]."?v=$localAssetVersion";
+				}
+			}, $buffer);
+		}
 		return $buffer;
 	}
 
