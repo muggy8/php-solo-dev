@@ -15,5 +15,8 @@
 	// scripts are loaded and cached in localstorage via basket.js. 
 	$cachedScripts = array("scripts.js?t=".time()); 
 	
+	// If you put a version on here, all assets (images included) will be loaded with ?v=$localAssetVersion at the end. This way if you update your assets in production and things are cached (eg: with a CDN) you can update changes easily. in testing $localAssetVersion should be set to time() so each reload loads new assets.
+	$localAssetVersion = "";
+	
 	include_once("$phpRoot/inc/php-tools.php");
 ?>

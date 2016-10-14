@@ -5,7 +5,12 @@
 			echo "<link rel=\"stylesheet\" href=\"$cssLink\">";
 		}
 		else{
-			echo "<link rel=\"stylesheet\" href=\"$htRoot/inc/css/$cssLink\">";
+			if (preg_match("/\?/i", $cssLink)){ //found "?" therefor need to add v= without question mark
+				echo "<link rel=\"stylesheet\" href=\"$htRoot/inc/css/$cssLink&v=$localAssetVersion\">";
+			}
+			else{
+				echo "<link rel=\"stylesheet\" href=\"$htRoot/inc/css/$cssLink?v=$localAssetVersion\">";
+			}
 		}
 	}
 ?>
@@ -39,7 +44,12 @@ catch(err){ // requestAnimationFrame doesn't exist
 				echo "{url:\"$script\"}";
 			}
 			else{
-				echo "{url:\"$htRoot/inc/js/$script\"}";
+				if (preg_match("/\?/i", $script)){ // found the "/" therefore we end the request with "&v=..."
+					echo "{url:\"$htRoot/inc/js/$script&v=$localAssetVersion\"}";
+				}
+				else{
+					echo "{url:\"$htRoot/inc/js/$script?v=$localAssetVersion\"}";
+				}
 			}
 			$loopIndex++;
 		}
