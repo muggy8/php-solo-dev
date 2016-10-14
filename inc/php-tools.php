@@ -33,7 +33,7 @@
 		
 		// add version to image assets
 		if ($imageVersioning){
-			$buffer = preg_replace_callback('/(?<=(src=\"|src=\')).+(?=(\'|\"))/U', function($assetLink)use ($localAssetVersion, $imageVersioning){
+			$buffer = preg_replace_callback('/(?<=(src=\"|src=\'))http.+(?=(\'|\"))/U', function($assetLink)use ($localAssetVersion, $imageVersioning){
 				if (preg_match('/\?/i', $assetLink[0])){ // has "?"
 					return $assetLink[0]."&v=$localAssetVersion";
 				}
