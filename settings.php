@@ -18,8 +18,8 @@
 	// If you put a version on here, all assets will be loaded with ?v=$localAssetVersion at the end. This way if you update your assets in production and things are cached (eg: with a CDN) you can update changes easily. in testing $localAssetVersion should be set to time() so each reload loads new assets.
 	$localAssetVersion = "";
 	
-	// regex for image assets is very expensive so it's turned off by default. 
-	$imageVersioning = false;
+	// regex for image assets kind of expensive so you can disable it here if you want.
+	$imageVersioning = true;
 	
 	include_once("$phpRoot/inc/php-tools.php");
 ?>
