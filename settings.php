@@ -10,10 +10,10 @@
 	$inlineCSSList = array("critical.css"); 
 	
 	// other not so important CSS will be added into the page via <link> tag
-	$linkedCSSList = array("https://fonts.googleapis.com/css?family=Open+Sans", "general.css?t=".time());
+	$linkedCSSList = array("https://fonts.googleapis.com/css?family=Open+Sans", "general.css");
 	
 	// scripts are loaded and cached in localstorage via basket.js. 
-	$cachedScripts = array("scripts.js?t=".time()); 
+	$cachedScripts = array("scripts.js"); 
 	
 	// If you put a version on here, all assets will be loaded with ?v=$localAssetVersion at the end. This way if you update your assets in production and things are cached (eg: with a CDN) you can update changes easily. in testing $localAssetVersion should be set to time() so each reload loads new assets.
 	$localAssetVersion = "";
