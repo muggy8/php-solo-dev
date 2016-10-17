@@ -46,8 +46,12 @@
 		
 		if ($cacheResponce){
 			$thisFileName = basename($_SERVER['SCRIPT_NAME'], ".php" );
+			$pathName = pathinfo($_SERVER['SCRIPT_FILENAME']);
+			$pathName = $pathName['dirname'];
 			
-			file_put_contents("$thisFileName.html", $buffer);
+			if (!file_put_contents("$pathName/$thisFileName.html", $buffer)){
+				$buffer .= "error trying to cache page. Please check directory permissions";
+			}
 		}
 		return $buffer;
 	}
