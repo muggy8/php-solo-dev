@@ -6,6 +6,7 @@
 		global $localAssetVersion;
 		global $imageVersioning;
 		global $htRoot;
+		global $cacheResponce;
 		$search = array(
 			'!/\*[^*]*\*+([^/][^*]*\*+)*/!', // strip CSS comments if there's any in line
 			'/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/', // remove js comments first
@@ -41,6 +42,12 @@
 					return $assetLink[0]."?v=$localAssetVersion";
 				}
 			}, $buffer);
+		}
+		
+		if ($cacheResponce){
+			$thisFileName = basename($_SERVER['SCRIPT_NAME'], ".php" );
+			
+			file_put_contents("$thisFileName.html", $buffer);
 		}
 		return $buffer;
 	}
