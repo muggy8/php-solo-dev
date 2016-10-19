@@ -98,4 +98,8 @@
 			echo $svgStr;
 		}
 	}
+	
+	if (file_exists("plugins.php")){
+		include_once("plugins.php");
+	}
 ?>
