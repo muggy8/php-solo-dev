@@ -99,7 +99,7 @@
 		}
 	}
 	
-	if (file_exists("plugins.php")){
-		include_once("plugins.php");
+	if (file_exists("$phpRoot/inc/plugins.php")){
+		include_once("$phpRoot/inc/plugins.php");
 	}
 ?>
