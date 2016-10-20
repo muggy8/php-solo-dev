@@ -12,6 +12,9 @@
 	// other not so important CSS will be added into the page via <link> tag
 	$linkedCSSList = array("https://fonts.googleapis.com/css?family=Open+Sans", "general.css");
 	
+	// if you rely heavily on javascript for some functions (eg: font loading) and you want to make sure that scriptless browsers sill renders reasonably, stick something in here. If left empty nothing will get added to the html responce. 
+	$noScriptCSSList = array();
+	
 	// scripts are loaded and cached in localstorage via basket.js. 
 	$cachedScripts = array("scripts.js"); 
 	

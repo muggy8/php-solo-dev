@@ -15,6 +15,27 @@
 	}
 ?>
 </noscript>
+<?php 
+	if (isset($noScriptCSSList) && count ($noScriptCSSList) > 0){
+		echo '<noscript id="noscript-fallback">';
+		
+		foreach ($noScriptCSSList as $cssLink){
+			if (preg_match("/^http/i", $cssLink)){
+				echo "<link rel=\"stylesheet\" href=\"$cssLink\">";
+			}
+			else{
+				if (preg_match("/\?/i", $cssLink)){ //found "?" therefor need to add v= without question mark
+					echo "<link rel=\"stylesheet\" href=\"$htRoot/inc/css/$cssLink&v=$localAssetVersion\">";
+				}
+				else{
+					echo "<link rel=\"stylesheet\" href=\"$htRoot/inc/css/$cssLink?v=$localAssetVersion\">";
+				}
+			}
+		}
+		
+		echo '</noscript>';
+	}
+?>
 <script>
 var loadDeferredStyles = function() {
 	var addStylesNode = document.getElementById("slow-css");
