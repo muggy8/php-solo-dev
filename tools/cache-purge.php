@@ -25,6 +25,6 @@
 			}
 		}
 	}
-	
+	$cacheResponce = false;
 	cache_clean($phpRoot);
 ?>
