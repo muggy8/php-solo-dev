@@ -1,4 +1,5 @@
 <?php
+
 	// minify HTML responce. and replaces all instances of {htRoot} with whatever your declared html root is. 
 	
 	// usage: if your root is "http://example.com/test" and you have something like src="{htRoot}/img/asset.jpg" somewhere, the HTML responce will have http://example.com/test/img/asset.jpg in the src attribute.
@@ -34,7 +35,7 @@
 		
 		// add version to image assets
 		if ($imageVersioning){
-			$buffer = preg_replace_callback('/(?<=(src=\"|src=\'))http.+(?=(\'|\"))/U', function($assetLink)use ($localAssetVersion, $imageVersioning){
+			$buffer = preg_replace_callback('/(?<=(src=\"|src=\'|url\(\"|url\(\'))http.+(?=(\'|\"))/U', function($assetLink)use ($localAssetVersion, $imageVersioning){
 				if (preg_match('/\?/i', $assetLink[0])){ // has "?"
 					return $assetLink[0]."&v=$localAssetVersion";
 				}
@@ -43,7 +44,7 @@
 				}
 			}, $buffer);
 		}
-		
+					
 		if ($cacheResponce){
 			$thisFileName = basename($_SERVER['SCRIPT_NAME'], ".php" );
 			$pathName = pathinfo($_SERVER['SCRIPT_FILENAME']);
