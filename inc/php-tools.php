@@ -35,14 +35,21 @@
 		
 		// add version to image assets
 		if ($imageVersioning){
-			$buffer = preg_replace_callback('/(?<=(src=\"|src=\'|url\(\"|url\(\'))http.+(?=(\'|\"))/U', function($assetLink)use ($localAssetVersion, $imageVersioning){
-				if (preg_match('/\?/i', $assetLink[0])){ // has "?"
-					return $assetLink[0]."&v=$localAssetVersion";
-				}
-				else{
-					return $assetLink[0]."?v=$localAssetVersion";
-				}
+			
+			$buffer = preg_replace_callback('/(\<(img|source")(.|\n)+\>|style=(\".+\"|\'.+\'))/U', function($imgTag) use ($localAssetVersion, $imageVersioning){ //regex: find all instances of img tag, src tag and style= attribute
+				
+				$imgTag[0] = preg_replace_callback('/(?<=(src=\"|src=\'|url\(\"|url\(\'))http.+(?=(\'|\"))/U', function($assetLink)use ($localAssetVersion, $imageVersioning){//regex to find the url segment starting with 'http://' or 'https://' that comes after a(n) src=", src=', url(" or url('
+					if (preg_match('/\?/i', $assetLink[0])){ // has "?"
+						return $assetLink[0]."&v=$localAssetVersion";
+					}
+					else{
+						return $assetLink[0]."?v=$localAssetVersion";
+					}
+				}, $imgTag[0]);
+				return $imgTag[0];
+				
 			}, $buffer);
+			
 		}
 					
 		if ($cacheResponce){
