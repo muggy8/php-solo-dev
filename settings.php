@@ -24,7 +24,7 @@
 	// regex for image assets kind of expensive so you can disable it here if you want.
 	$imageVersioning = true;
 	
-	// (unimplemented yet) if this is true, any page that is visited by a user will also output the page_name.html and save it in the same directory as the file itself. eg: if the file exists at {htRoot}/index.php it will output a file at {htRoot}/index.html with whatever responce it gets. this is desirable if you have a large number of inlines and includes in pages that you dont need to refresh often. 
+	// if this is true, any page that is visited by a user will also output the page_name.html and save it in the same directory as the file itself. eg: if the file exists at {htRoot}/index.php it will output a file at {htRoot}/index.html with whatever responce it gets. this is desirable if you have a large number of inlines and includes in pages that you dont need to refresh often. 
 	// note 1: apache will default to serve index.html over index.php when both exists in the same directory. 
 	// note 2: you can set this to true in the document as well so you only chache pages that are mostly unchanging. 
 	// note 3: you can enable multiview with .htaccess and {htRoot}/asset.php can be accessed via the link "{htRoot}/asset". priority will be given in this way: {htRoot}/asset/index.html -> {htRoot}/asset/index.php -> {htRoot}/asset.html - {htRoot}/asset.php
